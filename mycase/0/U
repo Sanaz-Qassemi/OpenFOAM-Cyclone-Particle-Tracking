@@ -1,0 +1,37 @@
+FoamFile
+{
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+dimensions      [0 1 -1 0 0 0 0];
+internalField   uniform (0 0 0);
+boundaryField
+{
+    wall
+    {
+        type            noSlip;
+    }
+    dust_dust
+    {
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
+    }
+    inlet
+    {
+        type            fixedValue;
+        value           uniform (19 0 0);
+    }
+    gas_outlet
+    {
+        type            zeroGradient;
+    }
+    body
+    {
+        type            noSlip;
+    }
+    default_wall
+    {
+        type            noSlip;
+    }
+}

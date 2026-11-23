@@ -1,0 +1,62 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+
+solvers
+{
+alpha.air
+{
+    solver          smoothSolver;
+    smoother        symGaussSeidel;
+    tolerance       1e-07;
+    relTol          0.01;
+        max             1;
+}
+
+alpha.airFinal
+{
+    $alpha.air;
+    relTol          0;
+}
+
+    "(p|p_rgh)"
+    {
+        solver          GAMG;
+        smoother        GaussSeidel;
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
+    "(p|p_rgh)Final"
+    {
+        $p;
+        relTol          0;
+    }
+
+    "(U.air|U|k.air|k|epsilon.air|epsilon)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0.1;
+    }
+
+    "(U.air|U|k.air|k|epsilon.air|epsilon)Final"
+    {
+        $U.air;
+        relTol          0;
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor yes;
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+}

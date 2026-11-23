@@ -1,0 +1,15 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties;
+}
+
+continuousPhaseName air;
+
+rho.air         1;
+
+viscosityModel  constant;
+
+nu              1.5e-05;

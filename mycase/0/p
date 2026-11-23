@@ -1,0 +1,36 @@
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    object      p;
+}
+dimensions      [0 2 -2 0 0 0 0];
+internalField   uniform 0;
+boundaryField
+{
+    wall
+    {
+        type            zeroGradient;
+    }
+    dust_dust
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            zeroGradient;
+    }
+    gas_outlet
+    {
+        type            fixedValue;
+        value           uniform 0;
+    }
+    body
+    {
+        type            zeroGradient;
+    }
+    default_wall
+    {
+        type            zeroGradient;
+    }
+}

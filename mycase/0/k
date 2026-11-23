@@ -1,0 +1,42 @@
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    object      k;
+}
+dimensions      [0 2 -2 0 0 0 0];
+internalField   uniform 0.5;
+boundaryField
+{
+    wall
+    {
+        type            kqRWallFunction;
+        value           uniform 0.5;
+    }
+    dust_dust
+    {
+        type            inletOutlet;
+        phi             phi.air;
+        inletValue      uniform 0.5;
+        value           uniform 0.5;
+    }
+    inlet
+    {
+        type            fixedValue;
+        value           uniform 0.5; // متناظر با شدت آشفتگی حدود 5% در ورودی طبق پایان نامه
+    }
+    gas_outlet
+    {
+        type            zeroGradient;
+    }
+    body
+    {
+        type            kqRWallFunction;
+        value           uniform 0.5;
+    }
+    default_wall
+    {
+        type            kqRWallFunction;
+        value           uniform 0.5;
+    }
+}

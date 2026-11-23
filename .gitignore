@@ -1,0 +1,15 @@
+# OpenFOAM heavy simulation & mesh files
+mycase/[1-9]*
+mycase/0.*
+mycase/processor*
+mycase/constant/polyMesh/*
+!mycase/constant/polyMesh/blockMeshDict
+mycase/log.*
+mycase/*.msh
+mycase/*.cas
+mycase/*.dat
+mycase/*.dbs
+mycase/*.trn
+mycase/*.jou
+*.foam
+__pycache__/

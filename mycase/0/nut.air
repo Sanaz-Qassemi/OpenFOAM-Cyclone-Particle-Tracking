@@ -1,0 +1,45 @@
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut.air;
+}
+
+dimensions      [0 2 -1 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    wall
+    {
+        type            nutkWallFunction;
+        value           uniform 0;
+    }
+    dust_dust
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    inlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    gas_outlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    body
+    {
+        type            nutkWallFunction;
+        value           uniform 0;
+    }
+    default_wall
+    {
+        type            nutkWallFunction;
+        value           uniform 0;
+    }
+}

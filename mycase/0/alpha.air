@@ -1,0 +1,24 @@
+FoamFile
+{
+format      ascii;
+class       volScalarField;
+location    "0";
+object      alpha.air;
+}
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 1;
+
+boundaryField
+{
+"(wall|body|default_wall)"
+{
+    type            zeroGradient;
+}
+
+"(dust_dust|inlet|gas_outlet)"
+{
+    type            zeroGradient;
+}
+}

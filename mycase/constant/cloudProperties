@@ -1,0 +1,145 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      cloudProperties;
+}
+
+type            MPPICCloud;
+
+solution
+{
+    active          true;
+    coupled         true;
+    transient       yes;
+    averagingMethod basic;
+    cellValueSourceCorrection true;
+    calcFrequency   1;
+    maxTrackTime    2e-4;
+    maxCo           0.3;
+
+    integrationSchemes
+{
+    U           Euler;
+    T           Euler;
+    rho         Euler;
+    mu          Euler;
+}
+
+    interpolationSchemes
+{
+    U           cell;
+    U.air       cell;
+    alpha.air   cell;
+    rho.air     cell;
+    mu.air      cell;
+    T.air       cell;
+}
+
+    sourceTerms
+    {
+        resetOnStartup  false;
+        schemes
+        {
+            U semiImplicit 1;
+        }
+    }
+}
+
+constantProperties
+{
+    rho0            2350;
+    minParcelMass   1e-15;
+    rhoMin          1e-15;
+    parcelGravity   true;
+}
+
+subModels
+{
+    particleForces
+    {
+        sphereDrag;
+    }
+
+    injectionModels
+    {
+        model1
+        {
+            type            patchInjection;
+            patchName       inlet;
+            SOI             0;
+            duration        7;
+            massFlowRate       1e-4;
+            parcelBasisType nParticle;
+            parcelsPerSecond 1000;
+            uniformParcelSize nParticle;
+            U0              (19 0 0);
+            sizeDistribution
+            {
+                type        RosinRammler;
+                RosinRammlerDistribution
+                {
+                    minValue    1e-05;
+                    maxValue    8e-04;
+                    d           2.65313e-04;
+                    n           1.435;
+                    Q           1.435;
+                }
+            }
+        }
+    }
+
+    dispersionModel none;
+
+    patchInteractionModel localInteraction;
+
+    localInteractionCoeffs
+    {
+        patches
+        {
+            wall
+            {
+                type            rebound;
+                e               1;
+                mu              0;
+            }
+            body
+            {
+                type            rebound;
+                e               1;
+                mu              0;
+            }
+            default_wall
+            {
+                type            rebound;
+                e               1;
+                mu              0;
+            }
+            dust_dust
+            {
+                type            escape;
+            }
+            inlet
+            {
+                type            rebound;
+            }
+            gas_outlet
+            {
+                type            escape;
+            }
+        }
+    }
+
+    heatTransferModel none;
+    compositionModel none;
+    phaseChangeModel none;
+    surfaceFilmModel none;
+    atomisationModel none;
+    breakupModel none;
+    packingModel none;
+    dampingModel none;
+    isotropyModel none;
+    collisionModel none;
+    stochasticCollisionModel none;
+}
